@@ -34,3 +34,6 @@ target/
 
 # MacOS
 .DS_Store
+
+# skywalking
+skywalking-agent

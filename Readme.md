@@ -3,7 +3,7 @@
 ## init 
 
 使用https://start.spring.io/ 生成demo。
-![Alt text](image.png)
+![Alt text](images/image.png)
 
 ## 增加micrometer依赖
 ```xml
@@ -27,6 +27,13 @@ management.metrics.tags.application=spring-boot-demo # tag
 mvn clean package -Dmaven.test.skip=true
 ```
 
+## run 
+```bash
+java -jar target/sprint-boot-demo-0.0.1-SNAPSHOT.jar
+
+# skywalking
+java -javaagent:`pwd`/skywalking-agent/skywalking-agent.jar  -Dskywalking.agent.service_name=spring-boot-demo -Dskywalking.collector.backend_service=127.0.0.1:11800 -jar target/sprint-boot-demo-0.0.1-SNAPSHOT.jar
+```
 ## test
 ```bash
 # prometheus
@@ -36,7 +43,33 @@ http://localhost:9091/actuator/prometheus
 http://localhost:9091/actuator/health
 ```
 
+## skywalking
+```bash
+# 引入jar包 
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+            <version>8.6.0</version>
+        </dependency>
+
+# 配置logback.xml 文件
+见配置文件
+
+# 启动
+java -javaagent:`pwd`/skywalking-agent/skywalking-agent.jar  -Dskywalking.agent.service_name=spring-boot-demo -Dskywalking.collector.backend_service=127.0.0.1:11800 -jar target/sprint-boot-demo-0.0.1-SNAPSHOT.jar
+```
+链路
+
+![Alt text](images/image-1.png)
+
+相关日志
+
+![Alt text](images/image-2.png)
 
 ## reference
 
 [Springboot 集成 micrometer（actuator/prometheus） 报 404](https://blog.csdn.net/linzhiji/article/details/112425193)
+
+[Spring-Boot-2.7-Release-Notes](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.7-Release-Notes)
+
+[Springboot接入SkyWalking分布式链路追踪](https://juejin.cn/post/6981640309943828487)
