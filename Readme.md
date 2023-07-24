@@ -5,7 +5,22 @@
 使用https://start.spring.io/ 生成demo。
 ![Alt text](images/image.png)
 
-## 增加micrometer依赖
+## health and metrics
+
+### health 
+
+pom 文件增加
+
+```xml
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+```
+
+### metrics 
+
+####  增加micrometer依赖
 ```xml
 		<dependency>
 			<groupId>io.micrometer</groupId>
@@ -14,7 +29,7 @@
 		</dependency>
 ```
 
-## application.properties
+#### application.properties
 ```properties
 server.port=9091
 management.endpoints.enabled-by-default=true  # 启用所有管理端点，默认情况下所有的管理端点都是开启的。
