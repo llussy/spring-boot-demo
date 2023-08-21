@@ -1,35 +1,48 @@
 
+- [init](#init)
+- [health and metrics](#health-and-metrics)
+	- [health](#health)
+	- [metrics](#metrics)
+		- [增加micrometer依赖](#增加micrometer依赖)
+		- [application.properties](#applicationproperties)
+- [build](#build)
+- [run](#run)
+- [test](#test)
+- [skywalking](#skywalking)
+- [reference](#reference)
 
-## init 
+## init
 
-使用https://start.spring.io/ 生成demo。
+使用<https://start.spring.io/> 生成demo。
 ![Alt text](images/image.png)
 
 ## health and metrics
 
-### health 
+### health
 
 pom 文件增加
 
 ```xml
-        <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+  <dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-actuator</artifactId>
+  </dependency>
 ```
 
-### metrics 
+### metrics
 
-####  增加micrometer依赖
+#### 增加micrometer依赖
+
 ```xml
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
-			<version>1.9.0</version>
-		</dependency>
+  <dependency>
+   <groupId>io.micrometer</groupId>
+   <artifactId>micrometer-registry-prometheus</artifactId>
+   <version>1.9.0</version>
+  </dependency>
 ```
 
 #### application.properties
+
 ```properties
 server.port=9091
 management.endpoints.enabled-by-default=true  # 启用所有管理端点，默认情况下所有的管理端点都是开启的。
@@ -37,19 +50,23 @@ management.endpoints.web.exposure.include=*  # 暴露所有web端点
 management.metrics.tags.application=spring-boot-demo # tag
 ```
 
-## build 
+## build
+
 ```bash
 mvn clean package -Dmaven.test.skip=true
 ```
 
-## run 
+## run
+
 ```bash
 java -jar target/sprint-boot-demo-0.0.1-SNAPSHOT.jar
 
 # skywalking
 java -javaagent:`pwd`/skywalking-agent/skywalking-agent.jar  -Dskywalking.agent.service_name=spring-boot-demo -Dskywalking.collector.backend_service=127.0.0.1:11800 -jar target/sprint-boot-demo-0.0.1-SNAPSHOT.jar
 ```
+
 ## test
+
 ```bash
 # prometheus
 http://localhost:9091/actuator/prometheus
@@ -59,6 +76,7 @@ http://localhost:9091/actuator/health
 ```
 
 ## skywalking
+
 ```bash
 # 引入jar包 
         <dependency>
@@ -73,6 +91,7 @@ http://localhost:9091/actuator/health
 # 启动
 java -javaagent:`pwd`/skywalking-agent/skywalking-agent.jar  -Dskywalking.agent.service_name=spring-boot-demo -Dskywalking.collector.backend_service=127.0.0.1:11800 -jar target/sprint-boot-demo-0.0.1-SNAPSHOT.jar
 ```
+
 链路
 
 ![Alt text](images/image-1.png)
