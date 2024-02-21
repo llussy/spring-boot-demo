@@ -18,6 +18,7 @@ RUN mkdir -p /usr/share/maven/conf && \
             </mirrors>\n\
         </settings>" \
     > /usr/share/maven/conf/settings.xml
+
 ADD . /tmp/
 
 RUN cd /tmp \
