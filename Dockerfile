@@ -6,9 +6,9 @@ RUN cd /tmp \
     && mvn clean package -Dmaven.test.skip=true
 
 FROM openjdk:8u342-jdk-buster
-ADD https://archive.apache.org/dist/skywalking/8.6.0/apache-skywalking-apm-8.6.0.tar.gz /
+ADD https://archive.apache.org/dist/skywalking/9.2.0/apache-skywalking-apm-9.2.0.tar.gz /
 
-RUN cd / && tar xf apache-skywalking-apm-8.6.0.tar.gz && rm -f apache-skywalking-apm-8.6.0.tar.gz
+RUN cd / && tar xf apache-skywalking-apm-9.2.0.tar.gz && rm -f apache-skywalking-apm-9.2.0.tar.gz
 
 COPY --from=build /tmp/spring-boot-demo/target/*.jar /spring-boot-demo.jar
 
