@@ -73,6 +73,9 @@ http://localhost:9091/actuator/prometheus
 
 # health
 http://localhost:9091/actuator/health
+
+# hello
+http://localhost:9091/hello
 ```
 
 ## skywalking
