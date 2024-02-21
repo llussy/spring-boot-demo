@@ -10,9 +10,9 @@ RUN cd /tmp \
 RUN ls /tmp
 
 FROM openjdk:8u342-jdk-buster
-ADD https://archive.apache.org/dist/skywalking/9.2.0/apache-skywalking-apm-9.2.0.tar.gz /
+ADD https://dlcdn.apache.org/skywalking/java-agent/9.1.0/apache-skywalking-java-agent-9.1.0.tgz /
 
-RUN cd / && tar xf apache-skywalking-apm-9.2.0.tar.gz && rm -f apache-skywalking-apm-9.2.0.tar.gz
+RUN cd / && tar xf apache-skywalking-java-agent-9.1.0.tgz && rm -f apache-skywalking-java-agent-9.1.0.tgz
 
 COPY --from=build /tmp/target/*.jar /spring-boot-demo.jar
 
