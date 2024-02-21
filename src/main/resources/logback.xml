@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr(%X{dd.service}){faint} %clr(%X{dd.trace_id}){faint} %clr(%X{dd.span_id}){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <contextName>sprint-boot-demo</contextName>
+
+    <!--定义日志文件的存储地址 -->
+    <property name="LOG_HOME" value="logs"/>
+
+    <!-- 控制台输出 -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.mdc.TraceIdMDCPatternLogbackLayout">
+                <Pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} [%X{tid}] [%thread] %-5level %logger{36} -%msg%n
+                </Pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    </appender>
+
+    <appender name="AsyncRollingFile" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="RollingFile"/>
+        <includeCallerData>true</includeCallerData>
+    </appender>
+
+    <!-- SkyWalking日志收集 -->
+    <appender name="skyWalking-log" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.mdc.TraceIdMDCPatternLogbackLayout">
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger- %msg%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
+    <!-- 输出到控制台和文件，可定义更多的 Appender -->
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="AsyncRollingFile"/>
+        <appender-ref ref="skyWalking-log"/>
+    </root>
+
+    <!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
+    <logger name="org.mybatis" level="ERROR"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+
+</configuration>
