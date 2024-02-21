@@ -22,7 +22,7 @@ CMD ["java", \
     "-XX:-UseAdaptiveSizePolicy", \
     "-javaagent:/skywalking-agent/skywalking-agent.jar", \
     "-Dskywalking.agent.service_name=spring-boot-demo", \
-    "-Dskywalking.collector.backend_service=172.17.41.123:11800", \
+    "-Dskywalking.collector.backend_service=skywalking-skywalking-helm-oap.monitoring.svc.cluster.local:11800", \
     "-XX:+UseG1GC", \
     "-Duser.timezone=Asia/Shanghai", \
     "-jar", \
