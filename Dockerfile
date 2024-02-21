@@ -10,7 +10,8 @@ RUN cd /tmp \
 RUN ls /tmp
 
 FROM openjdk:8u342-jdk-buster
-ADD https://dlcdn.apache.org/skywalking/java-agent/9.1.0/apache-skywalking-java-agent-9.1.0.tgz /
+
+COPY apache-skywalking-java-agent-9.1.0.tgz /
 
 RUN cd / && tar xf apache-skywalking-java-agent-9.1.0.tgz && rm -f apache-skywalking-java-agent-9.1.0.tgz
 
