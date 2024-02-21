@@ -1,0 +1,19 @@
+<settings>
+    <mirrors>
+        <mirror>
+            <id>tencent-mirror</id>
+            <mirrorOf>central</mirrorOf>
+            <name>Tencent Cloud Maven Mirror</name>
+            <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+            <layout>default</layout>
+            <mirrorOfLayouts>default</mirrorOfLayouts>
+            <blocked>false</blocked>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </mirror>
+    </mirrors>
+</settings>
