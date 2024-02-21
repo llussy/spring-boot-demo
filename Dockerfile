@@ -1,5 +1,23 @@
 FROM maven:3.6-jdk-8-alpine AS build
 
+# 设置腾讯云镜像源
+RUN mkdir -p /usr/share/maven/conf && \
+    echo "<settings>\n\
+            <mirrors>\n\
+                <mirror>\n\
+                    <id>mirrorId</id>\n\
+                    <mirrorOf>central</mirrorOf>\n\
+                    <name>Tencent Cloud Maven Mirror</name>\n\
+                    <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>\n\
+                    <layout>default</layout>\n\
+                    <mirrorOfLayouts>default</mirrorOfLayouts>\n\
+                    <blocked>false</blocked>\n\
+                    <releases><enabled>true</enabled></releases>\n\
+                    <snapshots><enabled>true</enabled></snapshots>\n\
+                </mirror>\n\
+            </mirrors>\n\
+        </settings>" \
+    > /usr/share/maven/conf/settings.xml
 ADD . /tmp/
 
 RUN cd /tmp \
